@@ -1,49 +1,26 @@
-## Buildozer
+## TankBattle(坦克大战)
 
-### Prerequisites
+### 兼容性要求
 
-* Java Development Kit(JDK) 8 or higher
+* 3.7 ≤ python ≤ 3.10
 
-### 初始化buildozer环境
+### 项目初始化
 
-```shell
-buildozer init
-```
+* 类unix系统
+   ```shell
+   sh initVenv.sh
+   ```
+* Windows系统
+   ```shell
+   initVenv.bat
+   ```
+  
+### 启动项目
 
-### 编译打包APK指南 
+* 虚拟环境命令行
+  ```shell
+  python main.py
+  ```
+* 集成开发环境
 
-#### 配置 buildozer.spec
-
-建议下载安装Android NDK 和 Android Command-Line Tools，
-不然每次clean后都需要重新下载 1.5G 大小的文件
-
-1. android.ndk_path
-   * 路径为`$Android_SDK_ROOT/ndk/$ndkVersion`
-2. android.sdk_path
-   * $Android_SDK_ROOT/tools中的sdkmanager有问题，需要使用下方的路径设置
-   * 实际是调用cmdline-tools的sdkmanager，路径为`$Android_SDK_ROOT/cmdline-tools/tools/sdkmanager`
-3. android.ant_path
-   * Apache Ant 90+M大小，开发者自行决定是否重新下载
-
-#### 打包命令
-
-```shell
-buildozer android release deploy run
-```
-
-#### 清除临时文件
-
-```shell
-# 清除.buildozer目录
-buildozer appclean
-```
-
-```shell
-# 清除整个buildozer环境
-buildozer distclean
-```
-
-```shell
-# 清除Android的构建缓存
-buildozer android clean
-```
+  执行启动文件 main.py `main`

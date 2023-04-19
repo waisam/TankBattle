@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 
 # 推断兼容的Python版本
 deduceCompatiblePython() {
