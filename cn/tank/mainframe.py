@@ -1,27 +1,31 @@
 import os
 from kivy.app import App
 from kivy.uix.button import Button
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.image import AsyncImage
-from kivy.uix.widget import Widget
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.image import Image
 
 
-class MainFrame(GridLayout, Widget):
+class MainFrame(FloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.cols = 1
-        self.rows = 2
-        self.button = Button(text='Start Game', font_size=80)
-        self.button.set_top(30)
-        self.button.set_right(40)
-        self.button.bind(on_press=self.click_callback)
-        self.cover = AsyncImage(source='media/image/cover.png')
-        self.cover.add_widget(self.button)
-        self.add_widget(self.cover)
+        self.cover_background = Image(source='media/image/cover.png', allow_stretch=True, keep_ratio=False)
+        self.start_btn = Button(font_size=50, background_normal="media/image/startgame.png",
+                                size_hint=(0.2, 0.1), pos_hint={'x': 0.80, 'y': 0.80})
+        self.start_btn.bind(on_press=self.start_game)
+        self.add_widget(self.cover_background)
+        self.add_widget(self.start_btn)
+        # 背景设置
+        # with self.canvas.after:
+        # Color(1, 1, 1, 0.5)
+        # self.background = BorderImage(source='media/image/cover.png', pos=self.pos, size=self.size)
+        # """炫技嫌疑，lambda可替换为常规函数"""
+        # self.bind(pos=lambda x, w: self.background.__setattr__('pos', w),
+        #           size=lambda y, size: self.background.__setattr__('size', size))
 
-    def click_callback(self, widget):
-        self.remove_widget(widget)
+    def start_game(self, widget):
+        self.remove_widget(self.start_btn)
+        self.remove_widget(self.cover_background)
 
 
 class TankBattleApp(App):
