@@ -1,0 +1,55 @@
+[
+  {
+    "type": "title",
+    "title": "窗口"
+  },
+  {
+    "type": "bool",
+    "title": "全屏开关",
+    "desc": "设置窗口或全屏模式",
+    "section": "graphics",
+    "key": "fullscreen"
+  },
+  {
+    "type": "numeric",
+    "title": "限制帧率",
+    "desc": "限制最大帧率，0表示不限制",
+    "section": "graphics",
+    "key": "maxfps"
+  },
+  {
+    "type": "bool",
+    "title": "鼠标指针",
+    "desc": "在窗口上显示/隐藏鼠标指针",
+    "section": "graphics",
+    "key": "show_cursor"
+  },
+  {
+    "type": "options",
+    "title": "翻转",
+    "desc": "屏幕翻转角度",
+    "section": "graphics",
+    "key": "rotation",
+    "options": ["0", "90", "180", "270"]
+  },
+
+  {
+    "type": "title",
+    "title": "日志"
+  },
+  {
+    "type": "bool",
+    "title": "日志文件",
+    "desc": "如果开启，日志将被存储到文件中",
+    "section": "system",
+    "key": "log_enable"
+  },
+  {
+    "type": "options",
+    "title": "日志级别",
+    "desc": "日志信息打印的级别",
+    "section": "system",
+    "key": "log_level",
+    "options": ["trace", "debug", "info", "warning", "error", "critical"]
+  }
+]
