@@ -9,10 +9,8 @@ class Arena(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.player1 = Player(source='media/image/player1_up.png', pos=(Window.width * 0.35, 0))
-        self.add_widget(self.player1)
-        self.player2 = Player(source='media/image/player2_up.png', pos=(Window.width * 0.60, 0))
-        self.add_widget(self.player2)
+        self.player1 = None
+        self.player2 = None
 
         if not mobile_runtime:
             # 非移动端，监听键盘事件
@@ -20,9 +18,6 @@ class Arena(Widget):
             self._keyboard.bind(on_key_down=self.on_key_down)
             self._keyboard.bind(on_key_up=self.on_key_up)
             self.pressed_keys = set()
-
-        Clock.schedule_interval(self.p1_move_schedule, 0)
-        Clock.schedule_interval(self.p2_move_schedule, 0)
 
     def p1_move_schedule(self, duration):
         """P1移动功能
@@ -111,11 +106,25 @@ class Arena(Widget):
 
         :Parameters event: 事件对象
         """
-        print(event)
+        pass
 
     def on_key_down(self, keyboard, keycode, keytext, modifiers):
-        # 方向键上下左右事件中，得到的`keytext`为`None`，必须使用`keycode`才能获取到正确的值
-        self.pressed_keys.add(keycode[1])
+        if '1' == keycode[1] and self.player1 is None:
+            self.player1 = Player(source='media/image/player1_up.png', pos=(Window.width * 0.35, 0))
+            self.add_widget(self.player1)
+            Clock.schedule_interval(self.p1_move_schedule, 0)
+            return
+        elif '0' == keycode[1] and self.player2 is None:
+            self.player2 = Player(source='media/image/player2_up.png', pos=(Window.width * 0.60, 0))
+            self.add_widget(self.player2)
+            Clock.schedule_interval(self.p2_move_schedule, 0)
+            return
+        else:
+            # 方向键上下左右事件中，得到的`keytext`为`None`，必须使用`keycode`才能获取到正确的值
+            self.pressed_keys.add(keycode[1])
 
     def on_key_up(self, keyboard, keycode):
+        if keycode[1] in ('0', '1'):
+            # 避免遍历set
+            return
         self.pressed_keys.discard(keycode[1])
