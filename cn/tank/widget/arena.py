@@ -33,18 +33,22 @@ class Arena(Widget):
             fp_source = self.player1.source
             x, y = self.player1.pos
             width, height = self.player1.size
-            if 'w' in self.pressed_keys and y < Window.height - height:
+            if 'w' in self.pressed_keys:
                 fp_source = 'media/image/player1_up.png'
-                y += 20
-            elif 's' in self.pressed_keys and y > 0:
+                if y < Window.height - height:
+                    y += 20
+            elif 's' in self.pressed_keys:
                 fp_source = 'media/image/player1_down.png'
-                y -= 20
-            elif 'a' in self.pressed_keys and x > 0:
+                if y > 0:
+                    y -= 20
+            elif 'a' in self.pressed_keys:
                 fp_source = 'media/image/player1_left.png'
-                x -= 20
-            elif 'd' in self.pressed_keys and x < Window.width - width:
+                if x > 0:
+                    x -= 20
+            elif 'd' in self.pressed_keys:
                 fp_source = 'media/image/player1_right.png'
-                x += 20
+                if x < Window.width - width:
+                    x += 20
 
             self.player1.source = fp_source
             self.player1.pos = x, y
@@ -75,7 +79,6 @@ class Arena(Widget):
         print(event)
 
     def on_key_down(self, keyboard, keycode, keytext, modifiers):
-        print(keytext)
         self.pressed_keys.add(keytext)
 
     def on_key_up(self, keyboard, keycode):
