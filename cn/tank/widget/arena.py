@@ -9,8 +9,10 @@ class Arena(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.player1 = Player(source='media/image/player1_up.png')
-        self.add_widget(widget=self.player1)
+        self.player1 = Player(source='media/image/player1_up.png', pos=(Window.width * 0.35, 0))
+        self.add_widget(self.player1)
+        self.player2 = Player(source='media/image/player2_up.png', pos=(Window.width * 0.60, 0))
+        self.add_widget(self.player2)
 
         if not mobile_runtime:
             # 非移动端，监听键盘事件
@@ -20,6 +22,7 @@ class Arena(Widget):
             self.pressed_keys = set()
 
         Clock.schedule_interval(self.p1_move_schedule, 0)
+        Clock.schedule_interval(self.p2_move_schedule, 0)
 
     def p1_move_schedule(self, duration):
         """P1移动功能
@@ -53,6 +56,38 @@ class Arena(Widget):
             self.player1.source = fp_source
             self.player1.pos = x, y
 
+    def p2_move_schedule(self, duration):
+        """P2移动功能
+
+        :Param duration:
+        """
+        if not mobile_runtime:
+            if len(self.pressed_keys) == 0:
+                return
+
+            sp_source = self.player2.source
+            x, y = self.player2.pos
+            width, height = self.player2.size
+            if 'up' in self.pressed_keys:
+                sp_source = 'media/image/player2_up.png'
+                if y < Window.height - height:
+                    y += 20
+            elif 'down' in self.pressed_keys:
+                sp_source = 'media/image/player2_down.png'
+                if y > 0:
+                    y -= 20
+            elif 'left' in self.pressed_keys:
+                sp_source = 'media/image/player2_left.png'
+                if x > 0:
+                    x -= 20
+            elif 'right' in self.pressed_keys:
+                sp_source = 'media/image/player2_right.png'
+                if x < Window.width - width:
+                    x += 20
+
+            self.player2.source = sp_source
+            self.player2.pos = x, y
+
     def on_keyboard_closed(self):
         self._keyboard.unbind(on_key_down=self.on_key_down)
         self._keyboard.unbind(on_key_up=self.on_key_up)
@@ -79,7 +114,8 @@ class Arena(Widget):
         print(event)
 
     def on_key_down(self, keyboard, keycode, keytext, modifiers):
-        self.pressed_keys.add(keytext)
+        # 方向键上下左右事件中，得到的`keytext`为`None`，必须使用`keycode`才能获取到正确的值
+        self.pressed_keys.add(keycode[1])
 
     def on_key_up(self, keyboard, keycode):
         self.pressed_keys.discard(keycode[1])
