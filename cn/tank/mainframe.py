@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
+from cn.tank.widget.arena import Arena
 
 
 class MainFrame(FloatLayout):
@@ -26,6 +27,7 @@ class MainFrame(FloatLayout):
     def start_game(self, widget):
         self.remove_widget(self.start_btn)
         self.remove_widget(self.cover_background)
+        self.add_widget(Arena())
 
 
 class TankBattleApp(App):
