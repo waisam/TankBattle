@@ -113,12 +113,10 @@ class Arena(Widget):
             self.player1 = Player(source='media/image/player1_up.png', pos=(Window.width * 0.35, 0))
             self.add_widget(self.player1)
             Clock.schedule_interval(self.p1_move_schedule, 0)
-            return
         elif '0' == keycode[1] and self.player2 is None:
             self.player2 = Player(source='media/image/player2_up.png', pos=(Window.width * 0.60, 0))
             self.add_widget(self.player2)
             Clock.schedule_interval(self.p2_move_schedule, 0)
-            return
         else:
             # 方向键上下左右事件中，得到的`keytext`为`None`，必须使用`keycode`才能获取到正确的值
             self.pressed_keys.add(keycode[1])
