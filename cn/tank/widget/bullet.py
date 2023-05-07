@@ -2,6 +2,8 @@ from kivy.uix.image import Image
 
 
 class Bullet(Image):
+    """子弹类
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

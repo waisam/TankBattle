@@ -6,6 +6,8 @@ from cn.tank.widget.tank import Player, Enemy
 
 
 class Arena(Widget):
+    """战场
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

@@ -1,16 +1,16 @@
-from abc import ABC, abstractmethod
 from kivy.uix.image import Image
 from typing import Tuple
 
 
-class Tank(ABC, Image):
+class Tank(Image):
+    """坦克类
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.allow_stretch = True
         self.toward = None
 
-    @abstractmethod
     def move(self):
         pass
 
@@ -46,6 +46,7 @@ class Player(Tank):
     def move(self):
         """P1、P2坦克手动操作，需要监听设备的输入事件，将`arena`中的移动函数迁到此处
         """
+        pass
 
 
 class Enemy(Tank):
